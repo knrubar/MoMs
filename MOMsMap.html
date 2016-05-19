@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MOMs Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var houseLatLng;
+var map;
+
+function initialize() {
+  var mapOptions = {
+    zoom: 12,
+    center: new google.maps.LatLng(30.030553, -95.562765), 
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+  // Define the LatLng coordinates for the polygon.
+  var MOMsCoords = [
+		{lat:30.073198, lng:-95.551035},
+		{lat:30.048979, lng:-95.539073},
+		{lat:30.040091, lng:-95.537579},
+		{lat:30.034414, lng:-95.535283},
+		{lat:30.025798, lng:-95.529235},
+		{lat:30.018396, lng:-95.520610},
+		{lat:30.003415, lng:-95.509663},
+		{lat:29.988586, lng:-95.498945},
+		{lat:29.987879, lng:-95.498461},
+		{lat:29.966062, lng:-95.538447},
+		{lat:29.963608, lng:-95.543882},
+		{lat:29.960867, lng:-95.547301},
+		{lat:29.967322, lng:-95.556564},
+		{lat:29.969378, lng:-95.559703},
+		{lat:29.971478, lng:-95.561923},
+		{lat:29.974904, lng:-95.564194},
+		{lat:29.981093, lng:-95.567613},
+		{lat:29.989669, lng:-95.573074},
+		{lat:29.993205, lng:-95.575856},
+		{lat:30.003194, lng:-95.584481},
+		{lat:30.013005, lng:-95.590630},
+		{lat:30.036821, lng:-95.604639},
+		{lat:30.039870, lng:-95.606630},
+		{lat:30.045525, lng:-95.611121},
+		{lat:30.051886, lng:-95.615280},
+		{lat:30.058004, lng:-95.617373},
+		{lat:30.066109, lng:-95.622502},
+		{lat:30.070151, lng:-95.627069},
+		{lat:30.074523, lng:-95.630361},
+		{lat:30.085630, lng:-95.636026},
+		{lat:30.089472, lng:-95.635975},
+		{lat:30.089555, lng:-95.631695},
+		{lat:30.100462, lng:-95.608346},
+		{lat:30.100528, lng:-95.604493},
+		{lat:30.099667, lng:-95.601482},
+		{lat:30.099866, lng:-95.585891},
+		{lat:30.099314, lng:-95.584207},
+		{lat:30.075711, lng:-95.557260},
+		{lat:30.074077, lng:-95.554453},
+		{lat:30.073436, lng:-95.552514}
+  ];
+
+  // Construct the polygon.
+  var MomsGrp = new google.maps.Polygon({
+    paths: MOMsCoords,
+    strokeColor: '#00FF00',
+    strokeOpacity: 0.8,
+    strokeWeight: 3,
+    fillColor: '#00FF00',
+    fillOpacity: 0.35
+  });
+  MomsGrp.setMap(map);
+
+}
+
+function doCalc() {
+  var start = document.getElementById('HouseAddress').value;
+var geocoder = new google.maps.Geocoder();
+
+geocoder.geocode( { 'address': start}, function(results, status) {
+
+if (status == google.maps.GeocoderStatus.OK) {
+    var latitude = results[0].geometry.location.lat();
+    var longitude = results[0].geometry.location.lng();
+marker = new google.maps.Marker({
+position: new google.maps.LatLng(latitude, longitude ),
+map: map
+});
+    } 
+}); 
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body onload="loadBody()">
+Green area shows boundries for MoMs group <br> Enter a house address: <br> <input type="text" id="HouseAddress"><button type="button" onclick="doCalc()">Calculate</button>
+<div id="container"style="background-color:#EEEEEE;float:left;width:100%;">
+<div id="map-canvas" style="background-color:#EEEEEE;float:left;width:90%;height:550px"></div></div>
+</body>
+</html>
