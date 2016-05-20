@@ -77,7 +77,11 @@ function initialize() {
   MomsGrp.setMap(map);
 
 }
+function doReset() {
+	window.location.reload();	
+}
 
+}
 function doCalc() {
   var start = document.getElementById('HouseAddress').value;
 var geocoder = new google.maps.Geocoder();
@@ -103,7 +107,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </head>
   <body onload="loadBody()">
 Green area shows boundries for MoMs group <br> Enter a house address: <br> <input type="text" id="HouseAddress"><button
-type="button" onclick="doCalc()">Find House</button><button type="button" on click="window.location.reload(true)">Reset</button>
+type="button" onclick="doCalc()">Find House</button><button type="button" on click="doReset()">Reset</button>
 <div id="container"style="background-color:#EEEEEE;float:left;width:100%;">
 <div id="map-canvas" style="background-color:#EEEEEE;float:left;width:90%;height:550px"></div></div>
 </body>
